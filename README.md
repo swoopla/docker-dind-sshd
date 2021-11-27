@@ -85,3 +85,33 @@ networks:
   dockersocket4treafik:
     driver: bridge
 ```
+
+### How it's work
+
+```
+  rundeck:
+    volumes:
+      - ${REALPATH:-.}/rundeck_.ssh/:/home/rundeck/.ssh/:rw
+```
+Mount *.ssh* folder with 
+*  _id_rsa.pub_ and _id.rsa_
+* *config* file for SSH client option:
+```
+Host *
+  StrictHostKeyChecking no
+```
+
+In rundeck application, create a job who run localy with *ssh ctl 'docker ps'*. That's all !
+
+### Push image on Docker HUB
+
+if you add another folder like this :
+
+```
+  ctl:
+    volumes:
+      - ${REALPATH:-.}/ctl_build/:/build:rw
+    environment:
+      DOCKER_CLIENT_CONFIG_JSON: '{\n "auths": {\n  "https://index.docker.io/v1/": {\n   "auth": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"\n		}\n	}\n}'      
+```
+And you write a job who build a *Dockerfile* in _/build/_, you can *push* it on docker hub.
