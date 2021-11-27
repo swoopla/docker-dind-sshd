@@ -2,7 +2,7 @@
 
 ## About
 
-A DockerInDocker [docker:dind](https://hub.docker.com/_/docker?tab=tags) image image with SSHD installed. This image can be used by RUNDECK, ANSIBLE or other program base on SSH protocol.
+A DockerInDocker [docker:dind](https://hub.docker.com/_/docker?tab=tags) image with SSHD installed. This image can be used by RUNDECK container, ANSIBLE container or other program based on SSH protocol.
 
 ## Why root user on image ?
 
@@ -40,7 +40,7 @@ x-logging: &logging
 
 services:
   ctl:
-    image: swoopla/docker-dnd-sshd
+    image: swoopla/dnd-sshd:latest
     expose:
       - 22
     environment:
